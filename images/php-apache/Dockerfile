@@ -1,8 +1,6 @@
-FROM php:5.3-apache
+FROM mkoester/ubuntu12.04-apache2-php5
 MAINTAINER Aberto Alvarez <alberto.alvarez81@gmail.com>
+ENV REFRESHED_AT 2015-06-16
 
-#RUN export DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y libapache2-mod-php5
-
-COPY config/php.ini /usr/local/lib/php.ini
-COPY config/php.ini /etc/php5/apache2/php.ini
+# apache config
+RUN sed -i -e"s/^magic_quotes_gpc = Off/magic_quotes_gpc = On/" /etc/php5/apache2/php.ini
