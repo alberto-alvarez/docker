@@ -29,13 +29,13 @@ docker ps -a | grep $1 > /dev/null && docker start $1 && echo "** Starting the c
 
 docker ps | grep $1 > /dev/null
 if [ $? == 0 ]; then
-    docker ps -l
+    docker ps
     exit
 fi
 
 if [ ! -L $1 ]; then
     echo "** Creating a new symbolic directory link for $1 **"
-    NAME=$(echo $1 | sed -s 's/^.*_//')
+    NAME=$(echo $1 | sed -s 's/_/\//')
     ln -s $BASE_APP_DIR/$NAME $1
 fi
 
