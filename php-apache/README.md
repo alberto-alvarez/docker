@@ -35,6 +35,15 @@ You can the visit the following URL in a browser on your host machine to get sta
 http://127.0.0.1:80
 ```
 
+## Using another container to MySQL
+
+In order to link your Web Application to another container running MySQL, please follow the instructions in this [README](../mysql/README.md).
+After starting the MySQL (named *mysql-server*) container you should run:
+
+```bash
+$ docker run -d -p 80:80 -v <path_to_your_webapp>:/var/www/my_website/public_html --link mysql-server:mysql alberto/ubuntu12.04-apache2-php5:v1
+```
+
 ## Hints
 
 How to enable [non-root](https://docs.docker.com/installation/ubuntulinux/#create-a-docker-group) use.
