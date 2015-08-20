@@ -32,7 +32,7 @@ fi
 
 if [ "$1" == "$MYSQL" ]; then
     docker ps | grep $1 > /dev/null && exit 0 # mysql container already running
-    docker ps -a  | grep $1 > /dev/null && echo "** Starting MySQL 5.5 container $1 **" && exit 0
+    docker ps -a  | grep $1 > /dev/null && echo "** Starting MySQL 5.5 container $1 **" && docker start $1 && exit 0
 
     echo "** Creating a new MySQL 5.5 container $1 **"
     mkdir -p $MYSQL_DATA
@@ -40,8 +40,8 @@ if [ "$1" == "$MYSQL" ]; then
     exit 0
 fi
 
-docker ps | grep $1 > /dev/null && docker stop $1 && echo "** Stopping the container $1 **"
-docker ps -a | grep $1 > /dev/null && docker rm $1 && echo "** Removing the container $1 **"
+docker ps | grep $1 > /dev/null && echo "** Stopping the container $1 **" && docker stop $1
+docker ps -a | grep $1 > /dev/null && echo "** Removing the container $1 **" && docker rm $1
 
 echo "** Creating a new container $1 **"
 NAME=$(echo $1 | sed -s 's/_/\//')
